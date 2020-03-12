@@ -18,14 +18,11 @@ const App: React.FC = () => {
   initializeFirebase();
 
   return (
-    <Router>
+    <Router basename="/tacopundit">
       <Switch>
-        <Redirect exact path="/tacopundit" to="/tacopundit/toppings" />
-        <Route exact path="/tacopundit/toppings" component={Homepage} />
-        <Route
-          path={`/tacopundit/toppings/:slug`}
-          component={ToppingDetailsPage}
-        />
+        <Redirect exact path="/" to="/toppings" />
+        <Route exact path="/toppings" component={Homepage} />
+        <Route path={`/toppings/:slug`} component={ToppingDetailsPage} />
         <Route path="*" component={NotFoundPage} />
       </Switch>
     </Router>

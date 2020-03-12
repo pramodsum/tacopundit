@@ -8,9 +8,12 @@ import { Topping } from "../components/ToppingCard/ToppingCard";
 
 const Homepage: React.FC = () => {
   const [toppings, setToppings] = React.useState<Array<Topping>>([]);
-  fetch("http://taco-randomizer.herokuapp.com/condiments/")
-    .then(response => response.json())
-    .then(setToppings);
+
+  React.useEffect(() => {
+    fetch("http://taco-randomizer.herokuapp.com/condiments/")
+      .then(response => response.json())
+      .then(setToppings);
+  }, []);
 
   return (
     <Layout>

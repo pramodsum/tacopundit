@@ -3,6 +3,7 @@ import { Card, CardContent } from "@material-ui/core";
 import ReactMarkdown from "react-markdown";
 
 import "./ToppingCard.css";
+import { Link } from "react-router-dom";
 
 export type Topping = {
   name: string;
@@ -17,14 +18,13 @@ const shortenString = (str: string, maxLen: number, separator = " ") => {
 };
 
 const ToppingCard: React.FC<{ topping: Topping }> = ({ topping }) => (
-  <Card
-    onClick={() => window.location.assign(`/toppings/${topping.slug}`)}
-    className="topping-card"
-  >
-    <CardContent>
-      <ReactMarkdown source={`${shortenString(topping.recipe, 200)}...`} />
-    </CardContent>
-  </Card>
+  <Link to={`/toppings/${topping.slug}`} className="topping-card-link-wrapper">
+    <Card className="topping-card">
+      <CardContent>
+        <ReactMarkdown source={`${shortenString(topping.recipe, 200)}...`} />
+      </CardContent>
+    </Card>
+  </Link>
 );
 
 export default ToppingCard;

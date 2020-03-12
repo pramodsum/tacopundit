@@ -11,15 +11,16 @@ import {
 } from "@material-ui/core";
 
 import "./Layout.css";
+import { Link } from "react-router-dom";
 
 const Layout: React.FC = ({ children }) => (
   <>
     <AppBar position="static">
       <Toolbar>
-        <IconButton onClick={() => window.location.assign("/")}>
-          <Typography className="title" variant="h6">
-            Home
-          </Typography>
+        <IconButton>
+          <Link to="/" className="title">
+            <Typography variant="h6">Home</Typography>
+          </Link>
         </IconButton>
       </Toolbar>
     </AppBar>

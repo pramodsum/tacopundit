@@ -17,11 +17,13 @@ type RouteParams = {
 
 const ToppingDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   const { slug } = match.params as RouteParams;
-
   const [toppingDetails, setToppingDetails] = React.useState<ToppingDetails>();
-  fetch(`http://taco-randomizer.herokuapp.com/condiments/${slug}/`)
-    .then(response => response.json())
-    .then(setToppingDetails);
+
+  React.useEffect(() => {
+    fetch(`http://taco-randomizer.herokuapp.com/condiments/${slug}/`)
+      .then(response => response.json())
+      .then(setToppingDetails);
+  }, []);
 
   const [review, updateReview] = React.useState<string>();
 

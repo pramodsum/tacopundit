@@ -1,4 +1,9 @@
 .title {
   flex-grow: 1;
   color: white;
+  text-decoration: none;
+}
+
+.title:hover {
+  color: lightcoral;
 }
