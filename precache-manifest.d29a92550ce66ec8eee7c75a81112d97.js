@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cc76982346d9e2965fa8cd8580129a09",
+    "revision": "efc96664cf990a8d2c687b8dc83bbf56",
     "url": "/tacopundit/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/tacopundit/static/css/2.4babd7d7.chunk.css"
   },
   {
-    "revision": "c97c934db0d74679e6d6",
+    "revision": "2d2ae020c2bfdb76adb6",
     "url": "/tacopundit/static/css/main.a06c7fab.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/tacopundit/static/js/2.9ae0f918.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c97c934db0d74679e6d6",
-    "url": "/tacopundit/static/js/main.9a271daa.chunk.js"
+    "revision": "2d2ae020c2bfdb76adb6",
+    "url": "/tacopundit/static/js/main.e644d6b4.chunk.js"
   },
   {
     "revision": "b559d5604a22de6dcd38",
