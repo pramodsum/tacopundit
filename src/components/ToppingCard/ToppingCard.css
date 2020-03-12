@@ -1,0 +1,13 @@
+.topping-card {
+  width: 240px;
+  margin: 10px;
+}
+
+.topping-card:hover {
+  background: lightgreen;
+}
+
+.topping-card h1 {
+  font-size: 24px;
+  text-transform: capitalize;
+}
