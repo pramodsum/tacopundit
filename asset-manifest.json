@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/tacopundit/static/css/main.a06c7fab.chunk.css",
+    "main.js": "/tacopundit/static/js/main.9a271daa.chunk.js",
+    "main.js.map": "/tacopundit/static/js/main.9a271daa.chunk.js.map",
+    "runtime-main.js": "/tacopundit/static/js/runtime-main.3f2a6f48.js",
+    "runtime-main.js.map": "/tacopundit/static/js/runtime-main.3f2a6f48.js.map",
+    "static/css/2.4babd7d7.chunk.css": "/tacopundit/static/css/2.4babd7d7.chunk.css",
+    "static/js/2.9ae0f918.chunk.js": "/tacopundit/static/js/2.9ae0f918.chunk.js",
+    "static/js/2.9ae0f918.chunk.js.map": "/tacopundit/static/js/2.9ae0f918.chunk.js.map",
+    "index.html": "/tacopundit/index.html",
+    "precache-manifest.cc2541eada8549f851410934f480feb7.js": "/tacopundit/precache-manifest.cc2541eada8549f851410934f480feb7.js",
+    "service-worker.js": "/tacopundit/service-worker.js",
+    "static/css/2.4babd7d7.chunk.css.map": "/tacopundit/static/css/2.4babd7d7.chunk.css.map",
+    "static/css/main.a06c7fab.chunk.css.map": "/tacopundit/static/css/main.a06c7fab.chunk.css.map",
+    "static/js/2.9ae0f918.chunk.js.LICENSE.txt": "/tacopundit/static/js/2.9ae0f918.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/tacopundit/static/media/roboto-latin-900italic.ebf6d164.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3f2a6f48.js",
+    "static/css/2.4babd7d7.chunk.css",
+    "static/js/2.9ae0f918.chunk.js",
+    "static/css/main.a06c7fab.chunk.css",
+    "static/js/main.9a271daa.chunk.js"
+  ]
+}
