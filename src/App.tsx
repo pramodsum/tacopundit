@@ -1,18 +1,13 @@
 import React from "react";
 import "typeface-roboto";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NotFoundPage from "./routes/NotFoundPage";
-import Homepage from "./routes/Homepage";
-import ToppingDetailsPage from "./routes/ToppingDetailsPage";
+import ItemPage from "./routes/ItemPage";
 
 import initializeFirebase from "./utils/firebase/init";
+import ItemDetailsPage from "./routes/ItemDetailsPage";
 
 const App: React.FC = () => {
   initializeFirebase();
@@ -20,9 +15,8 @@ const App: React.FC = () => {
   return (
     <Router basename="/tacopundit">
       <Switch>
-        <Redirect exact path="/" to="/toppings" />
-        <Route exact path="/toppings" component={Homepage} />
-        <Route path={`/toppings/:slug`} component={ToppingDetailsPage} />
+        <Route exact path="/" component={ItemPage} />
+        <Route path="/:slug" component={ItemDetailsPage} />
         <Route path="*" component={NotFoundPage} />
       </Switch>
     </Router>

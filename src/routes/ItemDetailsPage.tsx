@@ -4,37 +4,33 @@ import ReactMarkdown from "react-markdown";
 import { TextField, Box, Typography, Button } from "@material-ui/core";
 
 import Layout from "../components/Layout/Layout";
-import { TACO_API_BASE } from "../utils/globals";
+import { TACO_API_BASE, RouteParams } from "../utils/globals";
 
-type ToppingDetails = {
+type ItemDetails = {
   name: string;
   slug: string;
   recipe: string;
   url: string;
 };
 
-type RouteParams = {
-  slug: string;
-};
-
-const ToppingDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
+const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   const { slug } = match.params as RouteParams;
-  const [toppingDetails, setToppingDetails] = React.useState<ToppingDetails>();
+  const [ItemDetails, setItemDetails] = React.useState<ItemDetails>();
 
   React.useEffect(() => {
     fetch(`${TACO_API_BASE}/toppings/${slug}.json`)
       .then(response => response.json())
-      .then(setToppingDetails);
+      .then(setItemDetails);
   }, [slug]);
 
   const [review, updateReview] = React.useState<string>();
 
   return (
     <Layout>
-      {toppingDetails && (
+      {ItemDetails && (
         <>
-          <h1>{toppingDetails.name}</h1>
-          <ReactMarkdown source={toppingDetails.recipe} />
+          <h1>{ItemDetails.name}</h1>
+          <ReactMarkdown source={ItemDetails.recipe} />
         </>
       )}
       <Box>
@@ -44,7 +40,7 @@ const ToppingDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
             variant="outlined"
             fullWidth
             multiline
-            placeholder="Review this taco topping"
+            placeholder="Review this taco Item"
             style={{ marginRight: "10px" }}
             value={review}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -68,4 +64,4 @@ const ToppingDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   );
 };
 
-export default ToppingDetailsPage;
+export default ItemDetailsPage;

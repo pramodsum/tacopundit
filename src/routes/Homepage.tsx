@@ -3,24 +3,30 @@ import "typeface-roboto";
 import { Typography } from "@material-ui/core";
 
 import Layout from "../components/Layout/Layout";
-import ToppingsList from "../components/ToppingsList/ToppingsList";
-import { Topping } from "../components/ToppingCard/ToppingCard";
-
 import { TACO_API_BASE } from "../utils/globals";
 
+type Category = {
+  name: string;
+  slug: string;
+};
+
 const Homepage: React.FC = () => {
-  const [toppings, setToppings] = React.useState<Array<Topping>>([]);
+  const [categories, setCategories] = React.useState<Array<Category>>([]);
 
   React.useEffect(() => {
     fetch(`${TACO_API_BASE}/toppings`)
       .then(response => response.json())
-      .then(setToppings);
+      .then(setCategories);
   }, []);
 
   return (
     <Layout>
-      <Typography variant="h3">Taco Toppings</Typography>
-      <ToppingsList toppings={toppings} />
+      <Typography variant="h3">Categories</Typography>
+      {categories.map(({ name, slug }: Category) => (
+        <p>
+          <a href={`/tacopundit/${slug}`}>{name}</a>
+        </p>
+      ))}
     </Layout>
   );
 };

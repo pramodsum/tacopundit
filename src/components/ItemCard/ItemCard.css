@@ -1,17 +1,17 @@
-.topping-card {
+.item-card {
   width: 240px;
   margin: 10px;
 }
 
-.topping-card:hover {
+.item-card:hover {
   background: lightgreen;
 }
 
-.topping-card h1 {
+.item-card h1 {
   font-size: 24px;
   text-transform: capitalize;
 }
 
-.topping-card-link-wrapper {
+.item-card-link-wrapper {
   text-decoration: none;
 }
