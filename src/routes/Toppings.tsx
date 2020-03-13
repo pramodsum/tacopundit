@@ -8,7 +8,7 @@ import { Topping } from "../components/ToppingCard/ToppingCard";
 
 import { TACO_API_BASE } from "../utils/globals";
 
-const Homepage: React.FC = () => {
+const ToppingsPage: React.FC = () => {
   const [toppings, setToppings] = React.useState<Array<Topping>>([]);
 
   React.useEffect(() => {
@@ -25,4 +25,4 @@ const Homepage: React.FC = () => {
   );
 };
 
-export default Homepage;
+export default ToppingsPage;

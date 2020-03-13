@@ -10,6 +10,7 @@ export type Topping = {
   slug: string;
   recipe: string;
   url: string;
+  uuid: string;
 };
 
 const shortenString = (str: string, maxLen: number, separator = " ") => {
@@ -21,6 +22,7 @@ const ToppingCard: React.FC<{ topping: Topping }> = ({ topping }) => (
   <Link to={`/toppings/${topping.slug}`} className="topping-card-link-wrapper">
     <Card className="topping-card">
       <CardContent>
+        <h2>{topping.name}</h2>
         <ReactMarkdown source={`${shortenString(topping.recipe, 200)}...`} />
       </CardContent>
     </Card>

@@ -1,8 +1,10 @@
 import React from "react";
-import Layout from "../components/Layout/Layout";
 import { RouteComponentProps } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { TextField, Box, Typography, Button } from "@material-ui/core";
+
+import Layout from "../components/Layout/Layout";
+import { TACO_API_BASE } from "../utils/globals";
 
 type ToppingDetails = {
   name: string;
@@ -20,16 +22,21 @@ const ToppingDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   const [toppingDetails, setToppingDetails] = React.useState<ToppingDetails>();
 
   React.useEffect(() => {
-    fetch(`http://taco-randomizer.herokuapp.com/condiments/${slug}/`)
+    fetch(`${TACO_API_BASE}/toppings/${slug}.json`)
       .then(response => response.json())
       .then(setToppingDetails);
-  }, []);
+  }, [slug]);
 
   const [review, updateReview] = React.useState<string>();
 
   return (
     <Layout>
-      {toppingDetails && <ReactMarkdown source={toppingDetails.recipe} />}
+      {toppingDetails && (
+        <>
+          <h1>{toppingDetails.name}</h1>
+          <ReactMarkdown source={toppingDetails.recipe} />
+        </>
+      )}
       <Box>
         <Typography variant="h6">Reviews</Typography>
         <Box display="flex" justifyContent="space-between">
