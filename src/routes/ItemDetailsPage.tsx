@@ -1,7 +1,20 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { TextField, Box, Typography, Button } from "@material-ui/core";
+import {
+  Table,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  TextField,
+  Box,
+  Typography,
+  Button,
+} from "@material-ui/core";
+import Rating from '@material-ui/lab/Rating';
+
 import * as firebase from 'firebase/app';
 
 import Layout from "../components/Layout/Layout";
@@ -27,11 +40,11 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   const [reviews, setReviews] = React.useState<Array<Review>>();
   const reviewsTable: firebase.database.Reference = firebase.database().ref('reviews');
 
-  const loadReviews = async (name: string): Promise<void> => {
+  const loadReviews = async (recipeName: string): Promise<void> => {
     let reviews: Array<Review> = [];
     await reviewsTable
       .orderByChild('recipe_name')
-      .equalTo(name)
+      .equalTo(recipeName)
       .once("value")
       .then((data) => {
         data.forEach((childNode) => {
@@ -42,15 +55,17 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
             text: row['text'],
             stars: row['stars'],
           };
-          reviews.push(review);
+          reviews.unshift(review);
         });
       });
     setReviews(reviews);
   }
 
   // todo: allow ability to submit name, num stars
-  const saveReview = async (review: string): Promise<void> => {
+  const saveReview = async (commenterName: string, stars: number, review: string): Promise<void> => {
     await reviewsTable.push({
+      commenter_name: commenterName,
+      stars: stars,
       text: review,
       recipe_name: ItemDetails?.name,
     });
@@ -67,6 +82,8 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   }, [ItemDetails])
 
   const [review, updateReview] = React.useState<string>();
+  const [name, updateName] = React.useState<string>();
+  const [stars, updateStars] = React.useState<number>(0);
 
   return (
     <Layout>
@@ -76,35 +93,86 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
           <ReactMarkdown source={ItemDetails.recipe} />
         </>
       )}
-      <Box>
-        <Typography variant="h6">Reviews</Typography>
-        <Box display="flex" justifyContent="space-between">
-          <TextField
-            variant="outlined"
-            fullWidth
-            multiline
-            placeholder="Review this taco Item"
-            style={{ marginRight: "10px" }}
-            value={review}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              updateReview(event.target.value)
-            }
-          />
-          <Button
-            color="primary"
-            variant="contained"
-            style={{ width: "200px", maxHeight: "56px" }}
-            onClick={() => {
-              updateReview("");
-              window.alert(`New review: \n${review}`);
-              if (review) {
-                saveReview(review);
-                ItemDetails && loadReviews(ItemDetails.name);
-              }
+      <Box style={{ paddingTop: "20px"}}>
+        <Typography variant="h6">Leave a review</Typography>
+        <Box display="inline">
+          <Rating
+            name="simple-controlled"
+            value={stars}
+            onChange={(event, newStars) => {
+              newStars && updateStars(newStars);
             }}
-          >
-            Submit Review
-          </Button>
+          />
+          <Box display="flex" justifyContent="space-between">
+            <TextField
+              variant="outlined"
+              placeholder="Name"
+              style={{ marginRight: "10px", width: "30%" }}
+              value={name}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                updateName(event.target.value)
+              }
+            />
+            <TextField
+              variant="outlined"
+              fullWidth
+              multiline
+              placeholder="Review this taco Item"
+              style={{ marginRight: "10px" }}
+              value={review}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                updateReview(event.target.value)
+              }
+            />
+            <Button
+              color="primary"
+              variant="contained"
+              style={{ width: "200px", maxHeight: "56px" }}
+              onClick={() => {
+                updateName("");
+                updateStars(0);
+                updateReview("");
+                if (review) {
+                  saveReview(name || "Anonymous", stars, review);
+                  ItemDetails && loadReviews(ItemDetails.name);
+                }
+              }}
+            >
+              Submit Review
+            </Button>
+          </Box>
+        </Box>
+        <Box style={{ paddingTop: "50px"}} >
+          <Typography variant="h6">Reviews</Typography>
+          <TableContainer>
+            <Table aria-label="simple table">
+              <colgroup>
+                <col style={{width:'20%'}}/>
+                <col style={{width:'20%'}}/>
+                <col style={{width:'60%'}}/>
+              </colgroup>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Stars</TableCell>
+                  <TableCell>Review</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                { reviews &&
+                  reviews.map((review: Review) => (
+                    <TableRow key={review.commenterName}>
+                      <TableCell align="left">{review.commenterName}</TableCell>
+                      <TableCell align="left">
+                        <Rating name="read-only" value={review.stars} readOnly />
+                      </TableCell>
+                      <TableCell align="left">{review.text}</TableCell>
+                    </TableRow>
+                  ))
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Box>
       </Box>
     </Layout>
