@@ -2,12 +2,6 @@ import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import {
-  Table,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
   TextField,
   Box,
   Typography,
@@ -17,6 +11,7 @@ import Rating from '@material-ui/lab/Rating';
 
 import * as firebase from 'firebase/app';
 
+import ReviewsList from "../components/ReviewsList";
 import Layout from "../components/Layout/Layout";
 import { TACO_API_BASE, RouteParams } from "../utils/globals";
 
@@ -27,7 +22,7 @@ type ItemDetails = {
   url: string;
 };
 
-type Review = {
+export type Review = {
   recipeName: string;
   commenterName: string;
   text: string;
@@ -37,7 +32,7 @@ type Review = {
 const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   const { slug } = match.params as RouteParams;
   const [ItemDetails, setItemDetails] = React.useState<ItemDetails>();
-  const [reviews, setReviews] = React.useState<Array<Review>>();
+  const [reviews, setReviews] = React.useState<Array<Review>>([]);
   const reviewsTable: firebase.database.Reference = firebase.database().ref('reviews');
 
   const loadReviews = async (recipeName: string): Promise<void> => {
@@ -61,7 +56,6 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
     setReviews(reviews);
   }
 
-  // todo: allow ability to submit name, num stars
   const saveReview = async (commenterName: string, stars: number, review: string): Promise<void> => {
     await reviewsTable.push({
       commenter_name: commenterName,
@@ -142,38 +136,9 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
             </Button>
           </Box>
         </Box>
-        <Box style={{ paddingTop: "50px"}} >
-          <Typography variant="h6">Reviews</Typography>
-          <TableContainer>
-            <Table aria-label="simple table">
-              <colgroup>
-                <col style={{width:'20%'}}/>
-                <col style={{width:'20%'}}/>
-                <col style={{width:'60%'}}/>
-              </colgroup>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Stars</TableCell>
-                  <TableCell>Review</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                { reviews &&
-                  reviews.map((review: Review) => (
-                    <TableRow key={review.commenterName}>
-                      <TableCell align="left">{review.commenterName}</TableCell>
-                      <TableCell align="left">
-                        <Rating name="read-only" value={review.stars} readOnly />
-                      </TableCell>
-                      <TableCell align="left">{review.text}</TableCell>
-                    </TableRow>
-                  ))
-                }
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
+        <ReviewsList
+          reviews={reviews}
+        />
       </Box>
     </Layout>
   );
