@@ -14,9 +14,12 @@ const App: React.FC = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/tacopundit" component={Homepage} />
-        <Route path="/tacopundit/:slug" component={RecipeDetailsPage} />
-        <Route path="*" component={NotFoundPage} />
+        <Route exact path="/tacopundit/" component={Homepage} />
+        <Route
+          path="/tacopundit/toppings/:slug"
+          component={RecipeDetailsPage}
+        />
+        <Route component={NotFoundPage} />
       </Switch>
     </Router>
   );
