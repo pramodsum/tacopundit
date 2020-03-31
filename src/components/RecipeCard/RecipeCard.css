@@ -3,6 +3,13 @@
   margin: 10px;
 }
 
+@media only screen and (max-width: 600px) {
+  .recipe-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
 .recipe-card:hover {
   background: lightgreen;
 }
