@@ -12,7 +12,10 @@ const shortenString = (str: string, maxLen: number, separator = " ") => {
 };
 
 const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => (
-  <Link to={`/${recipe.slug}`} className="recipe-card-link-wrapper">
+  <Link
+    to={`${process.env.PUBLIC_URL}/${recipe.slug}`}
+    className="recipe-card-link-wrapper"
+  >
     <Card className="recipe-card">
       <CardContent>
         <h2>{recipe.name}</h2>

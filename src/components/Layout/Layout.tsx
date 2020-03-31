@@ -18,7 +18,7 @@ const Layout: React.FC = ({ children }) => (
     <AppBar position="static">
       <Toolbar>
         <IconButton>
-          <Link to="/" className="title">
+          <Link to={`${process.env.PUBLIC_URL}/`} className="title">
             <Typography variant="h6">Home</Typography>
           </Link>
         </IconButton>
