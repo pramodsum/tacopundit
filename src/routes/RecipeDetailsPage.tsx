@@ -27,8 +27,8 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   }, [slug]);
 
   const saveReview = React.useCallback(
-    async (commenterName: string, stars: number, review: string) =>
-      await reviewsTable.push({
+    (commenterName: string, stars: number, review: string) =>
+      reviewsTable.push({
         commenter_name: commenterName,
         stars: stars,
         text: review,
