@@ -25,6 +25,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
+    "dev": "PUBLIC_URL=http://localhost:3000/tacopundit react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build && cp build/index.html build/404.html",
     "test": "react-scripts test",
