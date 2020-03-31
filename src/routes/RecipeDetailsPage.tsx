@@ -8,28 +8,17 @@ import firebase from "firebase/app";
 import ReviewList from "../components/ReviewList/ReviewList";
 import Layout from "../components/Layout/Layout";
 import { TACO_API_BASE } from "../utils/globals";
-import { RouteParams, RecipeDetails, Review } from "../utils/types";
+import { RouteParams, RecipeDetails } from "../utils/types";
 
 const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   const { slug } = match.params as RouteParams;
-  const [itemDetails, setItemDetails] = React.useState<RecipeDetails>();
-  const [reviews, setReviews] = React.useState<Array<Review>>([]);
+  const [recipeDetails, setItemDetails] = React.useState<RecipeDetails>();
+  const [review, updateReview] = React.useState<string>();
+  const [name, updateName] = React.useState<string>();
+  const [stars, updateStars] = React.useState<number>(0);
   const reviewsTable: firebase.database.Reference = firebase
     .database()
     .ref("reviews");
-
-  const saveReview = async (
-    commenterName: string,
-    stars: number,
-    review: string
-  ): Promise<void> => {
-    await reviewsTable.push({
-      commenter_name: commenterName,
-      stars: stars,
-      text: review,
-      recipe_name: itemDetails?.name
-    });
-  };
 
   React.useEffect(() => {
     fetch(`${TACO_API_BASE}/toppings/${slug}.json`)
@@ -37,40 +26,23 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
       .then(setItemDetails);
   }, [slug]);
 
-  React.useEffect(() => {
-    if (!itemDetails) return;
-
-    let reviews: Array<Review> = [];
-    reviewsTable
-      .orderByChild("recipe_name")
-      .equalTo(itemDetails.name)
-      .once("value")
-      .then(data => {
-        data.forEach(childNode => {
-          const row = childNode.val();
-          const review: Review = {
-            recipeName: row["recipe_name"],
-            commenterName: row["commenter_name"],
-            text: row["text"],
-            stars: row["stars"]
-          };
-          reviews.unshift(review);
-        });
-
-        setReviews(reviews);
-      });
-  }, [itemDetails, itemDetails?.name, saveReview]);
-
-  const [review, updateReview] = React.useState<string>();
-  const [name, updateName] = React.useState<string>();
-  const [stars, updateStars] = React.useState<number>(0);
+  const saveReview = React.useCallback(
+    async (commenterName: string, stars: number, review: string) =>
+      await reviewsTable.push({
+        commenter_name: commenterName,
+        stars: stars,
+        text: review,
+        recipe_name: recipeDetails?.name
+      }),
+    [recipeDetails, reviewsTable]
+  );
 
   return (
     <Layout>
-      {itemDetails && (
+      {recipeDetails && (
         <>
-          <h1>{itemDetails.name}</h1>
-          <ReactMarkdown source={itemDetails.recipe} />
+          <h1>{recipeDetails.name}</h1>
+          <ReactMarkdown source={recipeDetails.recipe} />
         </>
       )}
       <Box style={{ paddingTop: "20px" }}>
@@ -79,7 +51,7 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
           <Rating
             name="simple-controlled"
             value={stars}
-            onChange={(event, newStars) => {
+            onChange={(_event, newStars) => {
               newStars && updateStars(newStars);
             }}
           />
@@ -121,7 +93,12 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
             </Button>
           </Box>
         </Box>
-        <ReviewList reviews={reviews} />
+        {recipeDetails?.name && (
+          <ReviewList
+            recipeName={recipeDetails.name}
+            onReviewSave={saveReview}
+          />
+        )}
       </Box>
     </Layout>
   );

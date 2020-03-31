@@ -11,13 +11,13 @@ const shortenString = (str: string, maxLen: number, separator = " ") => {
   return str.substr(0, str.lastIndexOf(separator, maxLen));
 };
 
-const RecipeCard: React.FC<{ item: Recipe }> = ({ item }) => (
-  <Link to={`/${item.slug}`} className="item-card-link-wrapper">
-    <Card className="item-card">
+const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => (
+  <Link to={`/${recipe.slug}`} className="recipe-card-link-wrapper">
+    <Card className="recipe-card">
       <CardContent>
-        <h2>{item.name}</h2>
-        {item.recipe && (
-          <ReactMarkdown source={`${shortenString(item.recipe, 200)}...`} />
+        <h2>{recipe.name}</h2>
+        {recipe.recipe && (
+          <ReactMarkdown source={`${shortenString(recipe.recipe, 200)}...`} />
         )}
       </CardContent>
     </Card>

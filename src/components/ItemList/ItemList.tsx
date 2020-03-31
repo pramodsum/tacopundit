@@ -8,8 +8,8 @@ import { Recipe } from "../../utils/types";
 const RecipeList: React.FC<{ items: Array<Recipe> }> = ({ items }) => {
   return (
     <List className="items-list">
-      {items.map(item => (
-        <RecipeCard item={item} />
+      {items.map(recipe => (
+        <RecipeCard recipe={recipe} />
       ))}
     </List>
   );
