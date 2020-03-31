@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "39bf1adc952c3b0d0ce8d89d8a068d1f",
+    "revision": "29ca5ff4b9afd1372a7904004aeafb39",
     "url": "/tacopundit/index.html"
   },
   {
