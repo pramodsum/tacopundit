@@ -2,13 +2,13 @@ import React from "react";
 import "typeface-roboto";
 
 import Layout from "../components/Layout/Layout";
-import ItemList from "../components/ItemList/ItemList";
-import { Item } from "../utils/types";
+import RecipeList from "../components/RecipeList/RecipeList";
+import { Recipe } from "../utils/types";
 
 import { TACO_API_BASE } from "../utils/globals";
 
-const ItemPage: React.FC = () => {
-  const [items, setItem] = React.useState<Array<Item>>([]);
+const Homepage: React.FC = () => {
+  const [items, setItem] = React.useState<Array<Recipe>>([]);
 
   React.useEffect(() => {
     fetch(`${TACO_API_BASE}/toppings`)
@@ -18,9 +18,9 @@ const ItemPage: React.FC = () => {
 
   return (
     <Layout>
-      <ItemList items={items} />
+      <RecipeList items={items} />
     </Layout>
   );
 };
 
-export default ItemPage;
+export default Homepage;

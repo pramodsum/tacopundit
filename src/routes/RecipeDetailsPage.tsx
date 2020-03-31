@@ -8,11 +8,11 @@ import firebase from "firebase/app";
 import ReviewList from "../components/ReviewList/ReviewList";
 import Layout from "../components/Layout/Layout";
 import { TACO_API_BASE } from "../utils/globals";
-import { RouteParams, ItemDetails, Review } from "../utils/types";
+import { RouteParams, RecipeDetails, Review } from "../utils/types";
 
 const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
   const { slug } = match.params as RouteParams;
-  const [itemDetails, setItemDetails] = React.useState<ItemDetails>();
+  const [itemDetails, setItemDetails] = React.useState<RecipeDetails>();
   const [reviews, setReviews] = React.useState<Array<Review>>([]);
   const reviewsTable: firebase.database.Reference = firebase
     .database()
@@ -97,7 +97,7 @@ const ItemDetailsPage: React.FC<RouteComponentProps> = ({ match }) => {
               variant="outlined"
               fullWidth
               multiline
-              placeholder="Review this taco Item"
+              placeholder="Review this taco Recipe"
               style={{ marginRight: "10px" }}
               value={review}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

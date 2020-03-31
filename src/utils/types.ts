@@ -3,7 +3,7 @@ export type RouteParams = {
   category?: string;
 };
 
-export type Item = {
+export type Recipe = {
   name: string;
   slug: string;
   recipe?: string;
@@ -11,7 +11,7 @@ export type Item = {
   uuid?: string;
 };
 
-export type ItemDetails = {
+export type RecipeDetails = {
   name: string;
   slug: string;
   recipe: string;
