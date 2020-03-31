@@ -4,8 +4,7 @@ import "typeface-roboto";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NotFoundPage from "./routes/NotFoundPage";
-import ItemPage from "./routes/ItemPage";
-
+import Homepage from "./routes/Homepage";
 import initializeFirebase from "./utils/firebase/init";
 import ItemDetailsPage from "./routes/ItemDetailsPage";
 
@@ -15,7 +14,7 @@ const App: React.FC = () => {
   return (
     <Router basename="/tacopundit">
       <Switch>
-        <Route exact path="/" component={ItemPage} />
+        <Route exact path="/" component={Homepage} />
         <Route path="/:slug" component={ItemDetailsPage} />
         <Route path="*" component={NotFoundPage} />
       </Switch>

@@ -1,34 +1,26 @@
 import React from "react";
 import "typeface-roboto";
-import { Typography } from "@material-ui/core";
 
 import Layout from "../components/Layout/Layout";
+import ItemList from "../components/ItemList/ItemList";
+import { Item } from "../utils/types";
+
 import { TACO_API_BASE } from "../utils/globals";
 
-type Category = {
-  name: string;
-  slug: string;
-};
-
-const Homepage: React.FC = () => {
-  const [categories, setCategories] = React.useState<Array<Category>>([]);
+const ItemPage: React.FC = () => {
+  const [items, setItem] = React.useState<Array<Item>>([]);
 
   React.useEffect(() => {
     fetch(`${TACO_API_BASE}/toppings`)
       .then(response => response.json())
-      .then(setCategories);
+      .then(setItem);
   }, []);
 
   return (
     <Layout>
-      <Typography variant="h3">Categories</Typography>
-      {categories.map(({ name, slug }: Category) => (
-        <p>
-          <a href={`/tacopundit/${slug}`}>{name}</a>
-        </p>
-      ))}
+      <ItemList items={items} />
     </Layout>
   );
 };
 
-export default Homepage;
+export default ItemPage;
